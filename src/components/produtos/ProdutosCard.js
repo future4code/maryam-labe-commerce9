@@ -27,9 +27,9 @@ const Card = styled.div`
 const ProdutoCard = (props) => {
     return (
         <Card>
-            <img src={props.img} alt={props.description} />
-            <h2>{props.description}</h2>
-            <h2>R${props.price},00</h2>
+            {/* <img> {props.job.img} </img> */}
+            <h2>{props.job.description}</h2>
+            <h2>R${props.job.price},00</h2>
             <button>Add Carrinho</button>
         </Card>
     )

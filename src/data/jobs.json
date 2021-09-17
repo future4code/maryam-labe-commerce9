@@ -1,0 +1,49 @@
+[
+    {
+       "id": "011218b4-ac07-4d69-92c9-a27976481138",
+       "title": "Decoração",
+       "description": "Decoração de interiores",
+       "price": 8000,
+       "paymentMethods": "[\"PayPal\",\"boleto\"]",
+       "dueDate": "2021-12-30 00:00:00",
+       "taken": true,
+       "apiKeyId": "291b2d5d-77e2-402f-8bbb-635e73274daf"      
+    }, {
+       "id": "01a314a5-3a47-4367-b3e5-25318feb655a",
+       "title": "Web design",
+       "description": "Implementador de páginas web",
+       "price": 2000,
+       "paymentMethods": "[\"Cartão de Crédito\",\"Cartão de Débito\",\"PayPal\",\"Boleto\"]",
+       "dueDate": "2021-10-16 00:00:00",
+       "taken": false,
+       "apiKeyId": "144134a4-8efa-4b2e-a4d4-0b0d41b25795"
+    }, {
+       "id": "0483c382-9f23-4da5-9cd4-47716f423a2a",
+       "title": "Troca de óleo",
+       "description": "Troco o óleo do seu carro em domicílio.",
+       "price": 50,
+       "paymentMethods": "[\"Pix\",\"Credito\"]",
+       "dueDate": "2021-07-01 00:00:00",
+       "taken": false,
+       "apiKeyId": "443f858a-a927-422d-92b0-72fb5eeab0da"
+    }, {
+       "id": "06b6dbde-c937-4458-8503-ab23f23e2615",
+       "title": "Aula de patinação no gelo",
+       "description": "Patinação em gelo imaginário. O meu para um pais tropical.",
+       "price": 80,
+       "paymentMethods": "[\"\",\"\",\"boleto\",\"pix\"]",
+       "dueDate": "2021-08-01 00:00:00",
+       "taken": false,
+       "apiKeyId": "6b5d3ade-aeb6-4364-91fa-b9a319e476c5"
+    }, {
+       "id": "0c31a56a-738f-40c2-a05c-021a4ae48d03",
+       "title": "Jogador profissional de caxeta",
+       "description": "Jogador com experiência. Acostumado a ambientes de boteco. Tolerante a altas doses de álcool",
+       "price": 100,
+       "paymentMethods": "[\"PayPal\",\"boleto\"]",
+       "dueDate": "2021-12-30 00:00:00",
+       "taken": false,
+       "apiKeyId": "6bc64d0f-679d-49ae-bc9d-794b076c84b7"
+    }
+   
+ ]

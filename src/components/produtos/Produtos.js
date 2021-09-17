@@ -51,31 +51,9 @@ export default class Produtos extends React.Component {
                 </NavProdutosContainer>
 
                 <CardsContainer>
-                    <ProdutosCard
-                        img=""
-                        description="card1"
-                        price="10"
-                    />
-                    <ProdutosCard
-                        img=""
-                        description="Card2"
-                        price="20"
-                    />
-                    <ProdutosCard
-                        img=""
-                        description="Card3"
-                        price="300"
-                    />
-                    <ProdutosCard
-                        img=""
-                        description="Card4"
-                        price="4"
-                    />
-                    <ProdutosCard
-                        img=""
-                        description="Card5"
-                        price="5000"
-                    />
+
+                    <ProdutosCard />  
+
                 </CardsContainer>
 
             </ProdutosContainer>
