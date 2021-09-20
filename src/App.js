@@ -1,107 +1,165 @@
-import React, { Component } from 'react';
-import jobList from "./data/jobs.json";
-import Filtros from './components/filtros/Filtros';
-import Produtos from './components/produtos/Produtos';
-import ProdutosCard from './components/produtos/Produtos';
-import Carrinho from './components/carrinho/Carrinho';
-import Cabecalho from './components/cabecalho/Cabecalho';
-import { Container, Conteudo } from './Style';
+import React from "react";
+import Carrinho from "./Componentes/Carrinho/Carrinho";
+import Filtros from "./Componentes/Filtros/Filtros";
+import Produtos from "./Componentes/Home/Produtos/Produtos";
+import { ConjuntoDeComponentes } from "./estiloDoApp";
+import { pacoteDeProdutos } from "./pacoteDeProdutos";
 
-
-export class App extends Component {
-
+class App extends React.Component {
   state = {
-    jobs: jobList,
-    query: "",
-    minPrice: "",
-    maxPrice: "",
-    sortingParameter: "title",
-    order: 1
-  }
+    filtroMinimo: 20,
+    filtroMaximo: 100000,
+    filtroBuscaPorNome: "",
+    ordenacao: "Crescente",
+    carrinho: [],
+    valorTotal: 0,
+  };
 
-  updateQuery = (ev) => {
+  manipularValorDoFiltroMinimo = (event) => {
     this.setState({
-      query: ev.target.value
-    })
-  }
+      filtroMinimo: event.target.value,
+    });
+  };
 
-  updateMinPrice = (ev) => {
+  manipularValorDoFiltroMaximo = (event) => {
     this.setState({
-      minPrice: ev.target.value
-    })
-  }
+      filtroMaximo: event.target.value,
+    });
+  };
 
-  updateMaxPrice = (ev) => {
+  manipularValorDoFiltroBuscaPorNome = (event) => {
     this.setState({
-      maxPrice: ev.target.value
-    })
-  }
+      filtroBuscaPorNome: event.target.value,
+    });
+  };
 
-  updateSortingParameter = (ev) => {
-    this.setState({
-      sortingParameter: ev.target.value
-    })
-  }
+  filtrarProdutos = () => {
+    const pacotesFiltradosMinimo = pacoteDeProdutos.filter((produto) => {
+      if (this.state.filtroMinimo) {
+        return produto.price >= this.state.filtroMinimo;
+      }else{
+        return produto
+      }
+    });
 
-  updateOrder = (ev) => {
+    const pacotesFiltradosMaximo = pacotesFiltradosMinimo.filter((produto) => {
+      if (this.state.filtroMaximo) {
+        return produto.price <= this.state.filtroMaximo;
+      } else {
+        return produto;
+      }
+    });
+
+    const pacoteFiltrado = pacotesFiltradosMaximo.filter((produto) => {
+      return produto.name.includes(this.state.filtroBuscaPorNome);
+    });
+
+    return pacoteFiltrado;
+  };
+
+  ordenarProdutos = (event) => {
     this.setState({
-      order: ev.target.value
-    })
-  }
+      ordenacao: event.target.value,
+    });
+  };
+
+  adicionarProdutoNoCarrinho = (produto) => {
+    const produtoNoCarrinho = this.state.carrinho.filter((item) => {
+      if (item.id === produto.id) {
+        return item;
+      }else{
+        return false
+      }
+    });
+
+    if (produtoNoCarrinho.length === 0) {
+      produto.quantidade = 1;
+      const novoCarrinho = [produto, ...this.state.carrinho];
+      this.setState({
+        carrinho: novoCarrinho,
+      });
+    } else {
+      const novoCarrinho = this.state.carrinho.map((item) => {
+        if (produto.id === item.id) {
+          return { ...item, quantidade: item.quantidade + 1 };
+        } else {
+          return item;
+        }
+      });
+
+      this.setState({
+        carrinho: novoCarrinho,
+      });
+    }
+    this.adicionarValorTotal(produto.price);
+  };
+
+  removerItemDoCarrinho = (itemParaRemover) => {
+    if (itemParaRemover.quantidade === 1) {
+      const novoCarrinho = this.state.carrinho.filter((item) => {
+        if (item.id !== itemParaRemover.id) {
+          return item;
+        }else{
+          return false
+        }
+      });
+      this.setState({
+        carrinho: novoCarrinho,
+      });
+    } else {
+      const novoCarrinho = this.state.carrinho.map((item) => {
+        if (itemParaRemover.id === item.id && item.quantidade >= 1) {
+          return { ...item, quantidade: item.quantidade - 1 };
+        } else {
+          return item;
+        }
+      });
+      this.setState({
+        carrinho: novoCarrinho,
+      });
+    }
+  };
+
+  adicionarValorTotal = (valor) => {
+    this.setState({
+      valorTotal: this.state.valorTotal + valor,
+    });
+  };
+
+  removerValorTotal = (valor) => {
+    this.setState({
+      valorTotal: this.state.valorTotal - valor,
+    });
+  };
 
   render() {
-    return <Container>
+    const produtosFiltrados = this.filtrarProdutos();
 
-      <Cabecalho />
-
-      <Conteudo>
+    return (
+      <ConjuntoDeComponentes>
         <Filtros
-          query={this.state.query}
-          updateQuery={this.updateQuery}
-          updateMinPrice={this.updateMinPrice}
-          updateMaxPrice={this.updateMaxPrice}
-          updateSortingParameter={this.updateSortingParameter}
-          updateOrder={this.updateOrder}
-          minPrice={this.state.minPrice}
-          maxPrice={this.state.maxPrice}
-          sortingParameter={this.state.sortingParameter}
-          order={this.state.order}
+          minimo={this.state.filtroMinimo}
+          maximo={this.state.filtroMaximo}
+          buscaPorNome={this.state.filtroBuscaPorNome}
+          onChangeMinimo={this.manipularValorDoFiltroMinimo}
+          onChangeMaximo={this.manipularValorDoFiltroMaximo}
+          onChangeBuscaPorNome={this.manipularValorDoFiltroBuscaPorNome}
         />
-        <div>
-          {this.state.jobs
-            .filter(job => {
-              return job.title.toLowerCase().includes(this.state.query.toLowerCase()) ||
-                job.description.toLowerCase().includes(this.state.query.toLowerCase())
-            })
-            .filter(job => {
-              return this.state.minPrice === "" || job.price >= this.state.minPrice
-            })
-            .filter(job => {
-              return this.state.maxPrice === "" || job.price <= this.state.maxPrice
-            })
-            .sort((currentJob, nextJob) => {
-              switch (this.state.sortingParameter) {
-                case "title":
-                  return this.state.order * currentJob.title.localeCompare(nextJob.title)
-                case "dueDate":
-                  return this.state.order * (new Date(currentJob.dueDate).getTime() - new Date(nextJob.dueDate).getTime())
-                default:
-                  return this.state.order * (currentJob.price - nextJob.price)
-              }
-            })
-            .map(job => {
-              return <ProdutosCard key={job.id} job={job} />
-            })}
-        </div>
-
-        <Produtos />
-
-        <Carrinho />
-
-      </Conteudo>
-
-    </Container>
+        <Produtos
+          quantidade={produtosFiltrados.length}
+          onChangeCabecalho={this.ordenarProdutos}
+          ordenacao={this.state.ordenacao}
+          produtos={produtosFiltrados}
+          onClick={this.adicionarProdutoNoCarrinho}
+        />
+        <Carrinho
+          carrinho={this.state.carrinho}
+          valorTotal={this.state.valorTotal}
+          removerItemDoCarrinho={this.removerItemDoCarrinho}
+        />
+      </ConjuntoDeComponentes>
+    );
   }
 }
 
-
+export default App;
