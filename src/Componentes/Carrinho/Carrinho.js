@@ -22,6 +22,11 @@ class Carrinho extends React.Component {
         <h2>Carrinho:</h2>
         <div>{itensDoCarrinho}</div>
         <p>Valor total: R$ {this.props.valorTotal},00</p>
+
+        <div>
+           <img src="https://2.bp.blogspot.com/-q8tsLvfaDtQ/XFS6Uyqe7NI/AAAAAAAACqQ/P02LtYXlnOsCPqcSF7zNgpaLbvBsZQRpgCLcBGAs/s1600/tenor.gif" />
+        </div>
+
       </ConjuntoDoCarrinho>
     );
   }
