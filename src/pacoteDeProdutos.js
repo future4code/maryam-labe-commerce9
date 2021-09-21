@@ -1,26 +1,31 @@
+const pcsporcos = require("./img/4-pcs-porcos.jpg");
+const casapig = require("./img/casa-pig.jpg");
+const pigPhone = require("./img/porquinho-com-fone.jpg");
+const litlePig = require("./img/litle-pig.jpg");
+
 export const pacoteDeProdutos = [
     {
       id: 1,
-      name: 'Produto legal',
-      price: 123,
-      photo: 'https://picsum.photos/200/200?a=1',
+      name: 'Familia de 4 Porquinhos em cerâmica.',
+      price: 40,
+      photo: pcsporcos,
     },
     {
       id: 2,
-      name: 'Produto 2',
-      price: 200,
-      photo: 'https://picsum.photos/200/200?a=2'
+      name: 'Casa para porquinhos',
+      price: 250,
+      photo: casapig,
     },
     {
       id: 3,
-      name: 'Produto 3',
-      price: 30,
-      photo: 'https://picsum.photos/200/200?a=3'
+      name: 'Porquinho com fone de ouvido e walkman.',
+      price: 560,
+      photo: pigPhone,
     },
     {
       id: 4,
-      name: 'Produto 4',
-      price: 10,
-      photo: 'https://picsum.photos/200/200?a=4'
+      name: 'Litle Pig',
+      price: 120,
+      photo: litlePig,
     }
   ]

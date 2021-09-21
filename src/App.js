@@ -1,14 +1,16 @@
 import React from "react";
 import Carrinho from "./Componentes/Carrinho/Carrinho";
 import Filtros from "./Componentes/Filtros/Filtros";
+import Cabecalho from "./Componentes/Cabecalho/Cabecalho";
 import Produtos from "./Componentes/Home/Produtos/Produtos";
 import { ConjuntoDeComponentes } from "./estiloDoApp";
 import { pacoteDeProdutos } from "./pacoteDeProdutos";
+import Rodape from "./Componentes/Rodape/Rodape";
 
 class App extends React.Component {
   state = {
-    filtroMinimo: 20,
-    filtroMaximo: 100000,
+    filtroMinimo: "",
+    filtroMaximo: "",
     filtroBuscaPorNome: "",
     ordenacao: "Crescente",
     carrinho: [],
@@ -37,7 +39,7 @@ class App extends React.Component {
     const pacotesFiltradosMinimo = pacoteDeProdutos.filter((produto) => {
       if (this.state.filtroMinimo) {
         return produto.price >= this.state.filtroMinimo;
-      }else{
+      } else {
         return produto
       }
     });
@@ -67,7 +69,7 @@ class App extends React.Component {
     const produtoNoCarrinho = this.state.carrinho.filter((item) => {
       if (item.id === produto.id) {
         return item;
-      }else{
+      } else {
         return false
       }
     });
@@ -99,7 +101,7 @@ class App extends React.Component {
       const novoCarrinho = this.state.carrinho.filter((item) => {
         if (item.id !== itemParaRemover.id) {
           return item;
-        }else{
+        } else {
           return false
         }
       });
@@ -135,8 +137,10 @@ class App extends React.Component {
   render() {
     const produtosFiltrados = this.filtrarProdutos();
 
-    return (
+    return (<div>
+      <Cabecalho />
       <ConjuntoDeComponentes>
+
         <Filtros
           minimo={this.state.filtroMinimo}
           maximo={this.state.filtroMaximo}
@@ -158,6 +162,9 @@ class App extends React.Component {
           removerItemDoCarrinho={this.removerItemDoCarrinho}
         />
       </ConjuntoDeComponentes>
+
+      <Rodape />
+    </div>
     );
   }
 }
